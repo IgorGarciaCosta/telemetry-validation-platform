@@ -39,11 +39,31 @@ public class EventsController : ControllerBase
 
     //GET api/events
     [HttpGet]
-    public ActionResult<IEnumerable<TelemetryEvent>> GetAll()
+    public ActionResult<IEnumerable<TelemetryEvent>> GetAll([FromQuery] string? type, [FromQuery] DateTimeOffset? from,
+        [FromQuery] DateTimeOffset? to)
     {
-        return Ok(_events);//200
-    }
+        var query = _events.AsEnumerable();
 
+        if (!string.IsNullOrWhiteSpace(type))//filter if the user sent a type 
+        {
+            query = query.Where(e => e.Type.Equals(type, StringComparison.OrdinalIgnoreCase));
+        }
+
+        //if sent start date
+        if (from.HasValue)
+        {
+            query = query.Where(e => e.Timestamp >= from.Value);
+        }
+
+        //if sent end date
+        if (to.HasValue)
+        {
+            query = query.Where(e => e.Timestamp <= to.Value);
+        }
+
+        //return filtered list
+        return Ok(query.ToList());
+    }
     //GET api/events/{id}/
     [HttpGet("{id:guid}")]//guid is a global unique identifier  
     public ActionResult<TelemetryEvent> GetById(Guid id)
