@@ -30,3 +30,4 @@ C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\obj\Debug\n
 C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\obj\Debug\net8.0\Api.pdb
 C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\obj\Debug\net8.0\Api.genruntimeconfig.cache
 C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\obj\Debug\net8.0\ref\Api.dll
+C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\obj\Debug\net8.0\Api.sourcelink.json
