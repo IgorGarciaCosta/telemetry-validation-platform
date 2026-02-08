@@ -1,7 +1,13 @@
+using Api.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // 1. Adiciona suporte a Controllers (essencial para o seu EventsController)
 builder.Services.AddControllers();
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
+);
 
 // 2. Adiciona suporte ao Swagger (para documentação e teste)
 builder.Services.AddEndpointsApiExplorer();
