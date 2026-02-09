@@ -1,5 +1,8 @@
+using System.Threading.Tasks;
+using Api.Data;
 using Api.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers;
 
@@ -8,9 +11,16 @@ namespace Api.Controllers;
 
 public class EventsController : ControllerBase
 {
-    //temporary database
-    //statis means that this list is shared among all instances of the EventsController class
-    private static readonly List<TelemetryEvent> _events = new();
+
+    private readonly AppDbContext _context;// 1. Em vez da lista estática, declaramos o Banco de Dados
+
+    public EventsController(AppDbContext context)
+    {
+        //O .NET entrega o banco pronto pra gente no construtor
+        _context = context;// 2. Injetamos o contexto do banco de dados no construtor do controlador
+    }
+
+
 
     [HttpPost]//POST api/events
     public ActionResult<TelemetryEvent> Create([FromBody] CreateEventRequest request)
@@ -30,8 +40,8 @@ public class EventsController : ControllerBase
             Playload = request.Playload,
         };
 
-        //3. saves in the list (simulating a data base)
-        _events.Add(novoEvento);
+        _context.Events.Add(novoEvento);//3. add the new event to the database context
+        _context.SaveChanges();//4. save the changes to the database
 
         //4. returns the created event with 201 Created status
         return CreatedAtAction(nameof(GetById), new { id = novoEvento.Id }, novoEvento);
@@ -39,14 +49,14 @@ public class EventsController : ControllerBase
 
     //GET api/events
     [HttpGet]
-    public ActionResult<IEnumerable<TelemetryEvent>> GetAll([FromQuery] string? type, [FromQuery] DateTimeOffset? from,
+    public async Task<ActionResult<IEnumerable<TelemetryEvent>>> GetAll([FromQuery] string? type, [FromQuery] DateTimeOffset? from,
         [FromQuery] DateTimeOffset? to)
     {
-        var query = _events.AsEnumerable();
+        var query = _context.Events.AsQueryable();//start with all events
 
         if (!string.IsNullOrWhiteSpace(type))//filter if the user sent a type 
         {
-            query = query.Where(e => e.Type.Equals(type, StringComparison.OrdinalIgnoreCase));
+            query = query.Where(e => e.Type == type);// O EF traduz isso pra SQL: WHERE Type = '...'
         }
 
         //if sent start date
@@ -61,14 +71,18 @@ public class EventsController : ControllerBase
             query = query.Where(e => e.Timestamp <= to.Value);
         }
 
+        // 6. Vai no banco buscar os dados (ToListAsync)
+        var eventos = await query.ToListAsync(); //execute the query and get the results as a list
+
         //return filtered list
-        return Ok(query.ToList());
+        return Ok(eventos);
     }
     //GET api/events/{id}/
     [HttpGet("{id:guid}")]//guid is a global unique identifier  
-    public ActionResult<TelemetryEvent> GetById(Guid id)
+    public async Task<ActionResult<TelemetryEvent>> GetById(Guid id)
     {
-        var evento = _events.FirstOrDefault(e => e.Id == id);
+        // 7. Busca no banco pelo ID (SELECT * FROM Events WHERE Id = ...)
+        var evento = await _context.Events.FirstOrDefaultAsync(e => e.Id == id);//find the event with the given id
         if (evento == null)
         {
             return NotFound();//404
