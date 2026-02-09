@@ -5,5 +5,5 @@ namespace Api.Models;
 public record CreateEventRequest
 (
     string Type,
-    string? Playload
+    string? Payload
 );

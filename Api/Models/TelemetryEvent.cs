@@ -8,5 +8,5 @@ public class TelemetryEvent
 
     public DateTimeOffset Timestamp { get; set; } = DateTimeOffset.UtcNow;//event timestamp
 
-    public string? Playload { get; set; }//Any extra data (JSON, Text, etc)
+    public string? Payload { get; set; }//Any extra data (JSON, Text, etc)
 }

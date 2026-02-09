@@ -1,14 +1,19 @@
 using Api.Data;
 using Microsoft.EntityFrameworkCore;
+using Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
 
 // 1. Adiciona suporte a Controllers (essencial para o seu EventsController)
 builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
-
+// Registrando o Serviço
+// Scoped = Cria um novo serviço para cada requisição HTTP (ideal para Web APIs)
+builder.Services.AddScoped<ITelemetryService, TelemetryService>();
 // 2. Adiciona suporte ao Swagger (para documentação e teste)
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
