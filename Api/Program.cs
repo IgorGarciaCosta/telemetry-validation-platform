@@ -1,6 +1,7 @@
 using Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Api.Services;
+using Api.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>(); // Adiciona o Middleware Global de Tratamento de Erros
 
 // 3. Configura o Swagger visual
 if (app.Environment.IsDevelopment())
