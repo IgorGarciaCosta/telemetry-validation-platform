@@ -29,11 +29,21 @@ public class EventsController : ControllerBase
             return BadRequest("Type is required.");
         }
 
-        // O Controller apenas repassa o pedido para o Service
-        var novoEvento = await _service.CreateEventAsync(request.Type, request.Payload);
+        try
+        {
+            // O Controller apenas repassa o pedido para o Service
+            // Tenta criar o evento através do serviço
+            var novoEvento = await _service.CreateEventAsync(request.Type, request.Payload);
 
-        //4. returns the created event with 201 Created status
-        return CreatedAtAction(nameof(GetById), new { id = novoEvento.Id }, novoEvento);
+            //4. returns the created event with 201 Created status
+            return CreatedAtAction(nameof(GetById), new { id = novoEvento.Id }, novoEvento);
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new { error = ex.Message });//400 error to user
+        }
+
+
     }
 
     //GET api/events

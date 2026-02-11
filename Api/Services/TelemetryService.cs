@@ -1,6 +1,7 @@
 using Api.Data;
 using Api.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace Api.Services;
 
@@ -16,6 +17,16 @@ public class TelemetryService : ITelemetryService
 
     public async Task<TelemetryEvent> CreateEventAsync(string type, string? payload)
     {
+        try
+        {
+            JsonDocument.Parse(payload ?? string.Empty);
+        }
+        catch (JsonException)
+        {
+            // Se o payload não for um JSON válido, lança uma exceção
+            throw new ArgumentException("Payload must be a valid JSON string.", nameof(payload));
+        }
+
         var novoEvento = new TelemetryEvent
         {
             Id = Guid.NewGuid(),
