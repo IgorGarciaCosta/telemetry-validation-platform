@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Api.Data;
+using Api.Dtos;
 using Api.Models;
 using Api.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +22,7 @@ public class EventsController : ControllerBase
 
 
     [HttpPost]//POST api/events
-    public async Task<ActionResult<TelemetryEvent>> Create([FromBody] CreateEventRequest request)
+    public async Task<ActionResult<TelemetryEvent>> Create([FromBody] Api.Dtos.CreateEventRequest request)
     {
         //1.basic valudation
         if (string.IsNullOrWhiteSpace(request.Type))
@@ -34,9 +35,16 @@ public class EventsController : ControllerBase
             // O Controller apenas repassa o pedido para o Service
             // Tenta criar o evento através do serviço
             var novoEvento = await _service.CreateEventAsync(request.Type, request.Payload);
+            var response = new EventResponse
+            {
+                Id = novoEvento.Id,
+                Type = novoEvento.Type,
+                Timestamp = novoEvento.Timestamp,
+                Payload = novoEvento.Payload ?? string.Empty
+            };
 
             //4. returns the created event with 201 Created status
-            return CreatedAtAction(nameof(GetById), new { id = novoEvento.Id }, novoEvento);
+            return CreatedAtAction(nameof(GetById), new { id = response.Id }, response);
         }
         catch (ArgumentException ex)
         {
@@ -52,7 +60,15 @@ public class EventsController : ControllerBase
         [FromQuery] DateTimeOffset? to)
     {
         var eventos = await _service.GetAllEventsAsync(type, from, to);
-        return Ok(eventos);//200
+        var response = eventos.Select(e => new EventResponse
+        {
+            Id = e.Id,
+            Type = e.Type,
+            Timestamp = e.Timestamp,
+            Payload = e.Payload ?? string.Empty
+        });
+
+        return Ok(response);//200
     }
 
     //GET api/events/{id}/
@@ -61,10 +77,17 @@ public class EventsController : ControllerBase
     {
         // 7. Busca no banco pelo ID (SELECT * FROM Events WHERE Id = ...)
         var evento = await _service.GetEventByIdAsync(id);
-        if (evento == null)
+
+        if (evento == null) return NotFound();//404
+
+        var response = new EventResponse
         {
-            return NotFound();//404
-        }
-        return Ok(evento);//200
+            Id = evento.Id,
+            Type = evento.Type,
+            Timestamp = evento.Timestamp,
+            Payload = evento.Payload ?? string.Empty
+        };
+
+        return Ok(response);//200
     }
 }
