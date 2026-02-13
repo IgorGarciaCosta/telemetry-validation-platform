@@ -7,5 +7,5 @@ public class EventResponse
     public DateTimeOffset Timestamp { get; set; }
     public string Payload { get; set; } = string.Empty;
 
-    public string SizeInfo => Payload.Length > 50 ? "Large Payload" : "Small Payload";
+    public string SizeInfo => Payload.Length > 50 ? "Large" : "Small";
 }
