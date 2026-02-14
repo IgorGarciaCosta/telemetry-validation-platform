@@ -1,0 +1,7 @@
+**/.dockerignore
+**/.env
+**/bin/
+**/obj/
+**/TestResults/
+.git/
+.vs/

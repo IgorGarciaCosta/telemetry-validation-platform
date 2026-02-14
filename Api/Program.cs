@@ -2,6 +2,9 @@ using Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Api.Services;
 using Api.Middleware;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +22,31 @@ builder.Services.AddScoped<ITelemetryService, TelemetryService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// --- CONFIGURAÇÃO DO JWT ---
+var jwtSettings = builder.Configuration.GetSection("Jwt");
+var key = Encoding.ASCII.GetBytes(jwtSettings["Key"] ?? throw new InvalidOperationException("JWT Key is not configured"));
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtSettings["Issuer"],
+        ValidAudience = jwtSettings["Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(key)
+    };
+});
+// ---------------------------
+
+
 var app = builder.Build();
 
 app.UseMiddleware<ExceptionMiddleware>(); // Adiciona o Middleware Global de Tratamento de Erros
@@ -31,8 +59,10 @@ if (app.Environment.IsDevelopment())
 }
 
 // (Opcional) Desabilita redirecionamento HTTPS por enquanto para evitar avisos de porta
-// app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
+app.UseAuthentication(); // Quem é você?
+app.UseAuthorization();  // O que você pode fazer?
 // 4. Mapeia os Controllers para que a API encontre suas rotas
 app.MapControllers();
 

@@ -4,6 +4,7 @@ using Api.Dtos;
 using Api.Models;
 using Api.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers;
@@ -11,6 +12,7 @@ namespace Api.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 
+[Authorize] // Ninguém entra sem token válido
 public class EventsController : ControllerBase
 {
     private readonly ITelemetryService _service;
@@ -22,6 +24,7 @@ public class EventsController : ControllerBase
 
 
     [HttpPost]//POST api/events
+    [Authorize(Roles = "Admin")] // Só Admin cria eventos
     public async Task<ActionResult<TelemetryEvent>> Create([FromBody] Api.Dtos.CreateEventRequest request)
     {
         //1.basic valudation
@@ -49,6 +52,7 @@ public class EventsController : ControllerBase
 
     //GET api/events
     [HttpGet]
+    [Authorize(Roles = "Admin,Reader")] // Admin e Leitor podem ver
     public async Task<ActionResult<IEnumerable<TelemetryEvent>>> GetAll([FromQuery] string? type, [FromQuery] DateTimeOffset? from,
         [FromQuery] DateTimeOffset? to)
     {
@@ -66,6 +70,7 @@ public class EventsController : ControllerBase
 
     //GET api/events/{id}/
     [HttpGet("{id:guid}")]//guid is a global unique identifier  
+    [Authorize(Roles = "Admin,Reader")]
     public async Task<ActionResult<TelemetryEvent>> GetById(Guid id)
     {
         // 7. Busca no banco pelo ID (SELECT * FROM Events WHERE Id = ...)

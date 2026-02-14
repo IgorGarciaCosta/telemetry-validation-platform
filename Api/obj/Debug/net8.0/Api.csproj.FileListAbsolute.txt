@@ -109,3 +109,11 @@ C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Debug\n
 C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
