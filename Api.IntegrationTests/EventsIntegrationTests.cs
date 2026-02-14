@@ -1,4 +1,5 @@
 using System.Net;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using Api.Dtos;
 using Xunit;
@@ -9,16 +10,23 @@ namespace Api.IntegrationTests;
 public class EventsIntegrationTests : IClassFixture<CustomWebApplicationFactory>
 {
     private readonly HttpClient _client;
+    private readonly CustomWebApplicationFactory _factory;
 
     public EventsIntegrationTests(CustomWebApplicationFactory factory)
     {
         // O _client é como se fosse o Postman aberto
+        _factory = factory;
         _client = factory.CreateClient();
     }
 
     [Fact]
     public async Task FluxoCompleto_CriarEBuscarEvento_DeveFuncionar()
     {
+        // Gera um token JWT válido
+        var token = _factory.GenerateJwtToken("Admin");
+        _client.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue("Bearer", token);
+
         // 1. ARRANGE (Preparar o JSON)
         var novoEvento = new CreateEventRequest
         {
