@@ -1,0 +1,40 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Telemetry API - Stack Serverless
+
+Globals:
+  Function:
+    Timeout: 10
+    MemorySize: 256
+
+Resources:
+  TelemetryApiFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./Api
+      Handler: Api
+      Runtime: dotnet8
+      Architectures:
+        - x86_64
+      Events:
+        ProxyResource:
+          Type: HttpApi
+          Properties:
+            Path: /{proxy+}
+            Method: ANY
+        RootResource:
+          Type: HttpApi
+          Properties:
+            Path: /
+            Method: ANY
+      Environment:
+        Variables:
+          # Em produção real, isso iria para o Parameter Store
+          # Por enquanto, vamos deixar vazio ou usar uma string de conexão fake se necessário
+          ASPNETCORE_ENVIRONMENT: Production
+
+Outputs:
+  WebApiUrl:
+    Description: URL da API
+    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/"

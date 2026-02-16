@@ -53,11 +53,11 @@ var app = builder.Build();
 app.UseMiddleware<ExceptionMiddleware>(); // Adiciona o Middleware Global de Tratamento de Erros
 
 // 3. Configura o Swagger visual
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+//if (app.Environment.IsDevelopment())
+//{
+app.UseSwagger();
+app.UseSwaggerUI();
+//}
 
 // (Opcional) Desabilita redirecionamento HTTPS por enquanto para evitar avisos de porta
 app.UseHttpsRedirection();
