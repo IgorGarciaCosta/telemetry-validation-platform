@@ -54,7 +54,9 @@ public class EventsController : ControllerBase
     [HttpGet]
     [Authorize(Roles = "Admin,Reader")] // Admin e Leitor podem ver
     public async Task<ActionResult<IEnumerable<TelemetryEvent>>> GetAll([FromQuery] string? type, [FromQuery] DateTimeOffset? from,
-        [FromQuery] DateTimeOffset? to)
+        [FromQuery] DateTimeOffset? to,
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 10)
     {
         var eventos = await _service.GetAllEventsAsync(type, from, to);
         var response = eventos.Select(e => new EventResponse

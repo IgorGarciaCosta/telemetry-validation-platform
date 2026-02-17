@@ -9,13 +9,14 @@ using Amazon.Lambda.AspNetCoreServer.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi);
-builder.Services.AddControllers();
 
-// 1. Adiciona suporte a Controllers (essencial para o seu EventsController)
+// 1. Adiciona suporte a Controllers (essencial para o EventsController)
 builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
+builder.Services.AddScoped<IEventRepository, PostgresEventRepository>(); // Registrando o Repositório
+
 // Registrando o Serviço
 // Scoped = Cria um novo serviço para cada requisição HTTP (ideal para Web APIs)
 builder.Services.AddScoped<ITelemetryService, TelemetryService>();

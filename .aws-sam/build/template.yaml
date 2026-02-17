@@ -22,18 +22,26 @@ Resources:
           Properties:
             Path: /{proxy+}
             Method: ANY
+            ApiId:
+              Ref: TelemetryHttpApi
         RootResource:
           Type: HttpApi
           Properties:
             Path: /
             Method: ANY
+            ApiId:
+              Ref: TelemetryHttpApi
       Environment:
         Variables:
           ASPNETCORE_ENVIRONMENT: Production
     Metadata:
       SamResourceId: TelemetryApiFunction
+  TelemetryHttpApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      Description: HTTP API para Telemetry Platform
 Outputs:
   WebApiUrl:
     Description: URL da API
     Value:
-      Fn::Sub: https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/
+      Fn::Sub: https://${TelemetryHttpApi}.execute-api.${AWS::Region}.amazonaws.com/

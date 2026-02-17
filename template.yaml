@@ -23,18 +23,24 @@ Resources:
           Properties:
             Path: /{proxy+}
             Method: ANY
+            ApiId: !Ref TelemetryHttpApi
         RootResource:
           Type: HttpApi
           Properties:
             Path: /
             Method: ANY
+            ApiId: !Ref TelemetryHttpApi
       Environment:
         Variables:
           # Em produção real, isso iria para o Parameter Store
           # Por enquanto, vamos deixar vazio ou usar uma string de conexão fake se necessário
           ASPNETCORE_ENVIRONMENT: Production
+  TelemetryHttpApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      Description: "HTTP API para Telemetry Platform"
 
 Outputs:
   WebApiUrl:
     Description: URL da API
-    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/"
+    Value: !Sub "https://${TelemetryHttpApi}.execute-api.${AWS::Region}.amazonaws.com/"
