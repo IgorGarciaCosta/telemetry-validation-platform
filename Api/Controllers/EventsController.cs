@@ -58,7 +58,7 @@ public class EventsController : ControllerBase
         [FromQuery] int page = 1,
         [FromQuery] int pageSize = 10)
     {
-        var eventos = await _service.GetAllEventsAsync(type, from, to);
+        var eventos = await _service.GetAllEventsAsync(type, from, to, page, pageSize);
         var response = eventos.Select(e => new EventResponse
         {
             Id = e.Id,

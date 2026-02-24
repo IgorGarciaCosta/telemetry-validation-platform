@@ -12,6 +12,9 @@ C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Release
 C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Release\net8.0\publish\Amazon.Lambda.Logging.AspNetCore.dll
 C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Release\net8.0\publish\Amazon.Lambda.RuntimeSupport.dll
 C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Release\net8.0\publish\Amazon.Lambda.Serialization.SystemTextJson.dll
+C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Release\net8.0\publish\AWSSDK.Core.dll
+C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Release\net8.0\publish\AWSSDK.DynamoDBv2.dll
+C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Release\net8.0\publish\AWSSDK.Extensions.NETCore.Setup.dll
 C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Release\net8.0\publish\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Release\net8.0\publish\Microsoft.EntityFrameworkCore.dll
 C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Release\net8.0\publish\Microsoft.EntityFrameworkCore.Abstractions.dll

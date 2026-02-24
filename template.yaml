@@ -35,10 +35,25 @@ Resources:
           # Em produção real, isso iria para o Parameter Store
           # Por enquanto, vamos deixar vazio ou usar uma string de conexão fake se necessário
           ASPNETCORE_ENVIRONMENT: Production
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref EventsTable
   TelemetryHttpApi:
     Type: AWS::Serverless::HttpApi
     Properties:
       Description: "HTTP API para Telemetry Platform"
+
+  EventsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: Events
+      AttributeDefinitions:
+        - AttributeName: Id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: Id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
 
 Outputs:
   WebApiUrl:

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "mxYji7jKkp0=",
+  "dgSpecHash": "oPy1riTMATM=",
   "success": true,
   "projectFilePath": "C:\\Users\\ISILV125\\Documents\\GitHub\\telemetry-validation-platform\\Api\\Api.csproj",
   "expectedPackageFiles": [
@@ -12,6 +12,9 @@
     "C:\\Users\\ISILV125\\.nuget\\packages\\amazon.lambda.logging.aspnetcore\\4.1.1\\amazon.lambda.logging.aspnetcore.4.1.1.nupkg.sha512",
     "C:\\Users\\ISILV125\\.nuget\\packages\\amazon.lambda.runtimesupport\\1.14.1\\amazon.lambda.runtimesupport.1.14.1.nupkg.sha512",
     "C:\\Users\\ISILV125\\.nuget\\packages\\amazon.lambda.serialization.systemtextjson\\2.4.4\\amazon.lambda.serialization.systemtextjson.2.4.4.nupkg.sha512",
+    "C:\\Users\\ISILV125\\.nuget\\packages\\awssdk.core\\4.0.3.15\\awssdk.core.4.0.3.15.nupkg.sha512",
+    "C:\\Users\\ISILV125\\.nuget\\packages\\awssdk.dynamodbv2\\4.0.15\\awssdk.dynamodbv2.4.0.15.nupkg.sha512",
+    "C:\\Users\\ISILV125\\.nuget\\packages\\awssdk.extensions.netcore.setup\\4.0.3.23\\awssdk.extensions.netcore.setup.4.0.3.23.nupkg.sha512",
     "C:\\Users\\ISILV125\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\ISILV125\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\8.0.18\\microsoft.aspnetcore.authentication.jwtbearer.8.0.18.nupkg.sha512",
     "C:\\Users\\ISILV125\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
@@ -65,8 +68,7 @@
     "C:\\Users\\ISILV125\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
     "C:\\Users\\ISILV125\\.nuget\\packages\\system.text.encoding.codepages\\6.0.0\\system.text.encoding.codepages.6.0.0.nupkg.sha512",
     "C:\\Users\\ISILV125\\.nuget\\packages\\system.text.json\\8.0.5\\system.text.json.8.0.5.nupkg.sha512",
-    "C:\\Users\\ISILV125\\.nuget\\packages\\system.threading.channels\\6.0.0\\system.threading.channels.6.0.0.nupkg.sha512",
-    "C:\\Users\\ISILV125\\.nuget\\packages\\microsoft.netcore.app.host.linux-x64\\8.0.23\\microsoft.netcore.app.host.linux-x64.8.0.23.nupkg.sha512"
+    "C:\\Users\\ISILV125\\.nuget\\packages\\system.threading.channels\\6.0.0\\system.threading.channels.6.0.0.nupkg.sha512"
   ],
   "logs": []
 }

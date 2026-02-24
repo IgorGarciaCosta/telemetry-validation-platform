@@ -143,6 +143,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "AWSSDK.DynamoDBv2": {
+              "target": "Package",
+              "version": "[4.0.15, )"
+            },
+            "AWSSDK.Extensions.NETCore.Setup": {
+              "target": "Package",
+              "version": "[4.0.3.23, )"
+            },
             "Amazon.Lambda.AspNetCoreServer.Hosting": {
               "target": "Package",
               "version": "[1.9.1, )"

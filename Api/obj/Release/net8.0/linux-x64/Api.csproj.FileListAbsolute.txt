@@ -126,3 +126,6 @@ C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\obj\Release
 C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\obj\Release\net8.0\linux-x64\Api.pdb
 C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\obj\Release\net8.0\linux-x64\Api.genruntimeconfig.cache
 C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\obj\Release\net8.0\linux-x64\ref\Api.dll
+C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Release\net8.0\linux-x64\AWSSDK.Core.dll
+C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Release\net8.0\linux-x64\AWSSDK.DynamoDBv2.dll
+C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Release\net8.0\linux-x64\AWSSDK.Extensions.NETCore.Setup.dll

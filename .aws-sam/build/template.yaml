@@ -34,12 +34,27 @@ Resources:
       Environment:
         Variables:
           ASPNETCORE_ENVIRONMENT: Production
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName:
+            Ref: EventsTable
     Metadata:
       SamResourceId: TelemetryApiFunction
   TelemetryHttpApi:
     Type: AWS::Serverless::HttpApi
     Properties:
       Description: HTTP API para Telemetry Platform
+  EventsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: Events
+      AttributeDefinitions:
+      - AttributeName: Id
+        AttributeType: S
+      KeySchema:
+      - AttributeName: Id
+        KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
 Outputs:
   WebApiUrl:
     Description: URL da API

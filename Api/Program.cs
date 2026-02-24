@@ -6,17 +6,32 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Amazon.Lambda.AspNetCoreServer.Hosting;
+using Amazon.DynamoDBv2;
+
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi);
 
 // 1. Adiciona suporte a Controllers (essencial para o EventsController)
 builder.Services.AddControllers();
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
-);
-builder.Services.AddScoped<IEventRepository, PostgresEventRepository>(); // Registrando o Repositório
+var isRunningInLambda = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("AWS_LAMBDA_FUNCTION_NAME"));
 
+if (isRunningInLambda)
+{
+    // Configuração para NUVEM (DynamoDB)
+    builder.Services.AddAWSService<IAmazonDynamoDB>();
+    builder.Services.AddScoped<IEventRepository, DynamoDbEventRepository>();
+    Console.WriteLine("--> Usando DynamoDB (Cloud Mode)");
+}
+else
+{
+    // Configuração para LOCAL (Postgres)
+    builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
+    );
+    builder.Services.AddScoped<IEventRepository, PostgresEventRepository>();
+    Console.WriteLine("--> Usando Postgres (Local Mode)");
+}
 // Registrando o Serviço
 // Scoped = Cria um novo serviço para cada requisição HTTP (ideal para Web APIs)
 builder.Services.AddScoped<ITelemetryService, TelemetryService>();
