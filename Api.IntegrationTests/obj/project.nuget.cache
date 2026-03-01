@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "3hb2uiczjfQ=",
+  "dgSpecHash": "Q6VhhnEBeoI=",
   "success": true,
   "projectFilePath": "C:\\Users\\ISILV125\\Documents\\GitHub\\telemetry-validation-platform\\Api.IntegrationTests\\Api.IntegrationTests.csproj",
   "expectedPackageFiles": [
@@ -15,6 +15,7 @@
     "C:\\Users\\ISILV125\\.nuget\\packages\\awssdk.core\\4.0.3.15\\awssdk.core.4.0.3.15.nupkg.sha512",
     "C:\\Users\\ISILV125\\.nuget\\packages\\awssdk.dynamodbv2\\4.0.15\\awssdk.dynamodbv2.4.0.15.nupkg.sha512",
     "C:\\Users\\ISILV125\\.nuget\\packages\\awssdk.extensions.netcore.setup\\4.0.3.23\\awssdk.extensions.netcore.setup.4.0.3.23.nupkg.sha512",
+    "C:\\Users\\ISILV125\\.nuget\\packages\\awssdk.sqs\\4.0.2.15\\awssdk.sqs.4.0.2.15.nupkg.sha512",
     "C:\\Users\\ISILV125\\.nuget\\packages\\coverlet.collector\\6.0.0\\coverlet.collector.6.0.0.nupkg.sha512",
     "C:\\Users\\ISILV125\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\8.0.18\\microsoft.aspnetcore.authentication.jwtbearer.8.0.18.nupkg.sha512",
     "C:\\Users\\ISILV125\\.nuget\\packages\\microsoft.aspnetcore.mvc.testing\\8.0.24\\microsoft.aspnetcore.mvc.testing.8.0.24.nupkg.sha512",

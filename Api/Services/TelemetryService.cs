@@ -7,11 +7,14 @@ namespace Api.Services;
 public class TelemetryService : ITelemetryService
 {
     private readonly IEventRepository _repository;
+    private readonly IMessageQueueService _queueService;
 
-    // O Service precisa do Banco, então injeto o DbContext aqui
-    public TelemetryService(IEventRepository repository)
+    // O Service precisa do Banco, então injeto o DbContext 
+    //injeta o serviço de fila para enviar mensagens quando um evento for criado
+    public TelemetryService(IEventRepository repository, IMessageQueueService queueService)
     {
         _repository = repository;
+        _queueService = queueService;
     }
 
     public async Task<TelemetryEvent> CreateEventAsync(string type, string? payload)
@@ -34,7 +37,14 @@ public class TelemetryService : ITelemetryService
             Payload = payload
         };
 
-        return await _repository.CreateAsync(novoEvento);
+        // 1. Salva no Banco (Dynamo ou Postgres)
+        var createdEvent = await _repository.CreateAsync(novoEvento);
+
+        // 2. Envia para a fila SQS
+        var eventJson = JsonSerializer.Serialize(createdEvent);
+        await _queueService.SendMessageAsync(eventJson);
+
+        return createdEvent;
 
     }
 

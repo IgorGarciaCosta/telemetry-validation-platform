@@ -129,3 +129,4 @@ C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Debug\n
 C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Debug\net8.0\AWSSDK.Core.dll
 C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Debug\net8.0\AWSSDK.DynamoDBv2.dll
 C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Debug\net8.0\AWSSDK.Extensions.NETCore.Setup.dll
+C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Debug\net8.0\AWSSDK.SQS.dll

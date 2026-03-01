@@ -35,9 +35,14 @@ Resources:
           # Em produção real, isso iria para o Parameter Store
           # Por enquanto, vamos deixar vazio ou usar uma string de conexão fake se necessário
           ASPNETCORE_ENVIRONMENT: Production
+          SQS_QUEUE_URL: !Ref TelemetryQueue
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref EventsTable
+          # --- Permissão para enviar mensagens ---
+        - SQSSendMessagePolicy:
+            QueueName: !GetAtt TelemetryQueue.QueueName
+        # ---------------------------------------------
   TelemetryHttpApi:
     Type: AWS::Serverless::HttpApi
     Properties:
@@ -54,8 +59,16 @@ Resources:
         - AttributeName: Id
           KeyType: HASH
       BillingMode: PAY_PER_REQUEST
+  # --- Fila SQS ---
+  TelemetryQueue:
+    Type: AWS::SQS::Queue
+  # --
 
 Outputs:
   WebApiUrl:
     Description: URL da API
     Value: !Sub "https://${TelemetryHttpApi}.execute-api.${AWS::Region}.amazonaws.com/"
+  # Mostrar a URL da fila no final
+  QueueUrl:
+    Description: URL da Fila SQS
+    Value: !Ref TelemetryQueue

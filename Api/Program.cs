@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Amazon.Lambda.AspNetCoreServer.Hosting;
 using Amazon.DynamoDBv2;
+using Amazon.SQS;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,7 +22,9 @@ if (isRunningInLambda)
     // Configuração para NUVEM (DynamoDB)
     builder.Services.AddAWSService<IAmazonDynamoDB>();
     builder.Services.AddScoped<IEventRepository, DynamoDbEventRepository>();
-    Console.WriteLine("--> Usando DynamoDB (Cloud Mode)");
+    builder.Services.AddAWSService<IAmazonSQS>();
+    builder.Services.AddScoped<IMessageQueueService, SqsService>();
+    Console.WriteLine("--> Usando DynamoDB + SQS (Cloud Mode)");
 }
 else
 {
@@ -30,6 +33,7 @@ else
         options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
     );
     builder.Services.AddScoped<IEventRepository, PostgresEventRepository>();
+    builder.Services.AddScoped<IMessageQueueService, MockMessageQueueService>();
     Console.WriteLine("--> Usando Postgres (Local Mode)");
 }
 // Registrando o Serviço

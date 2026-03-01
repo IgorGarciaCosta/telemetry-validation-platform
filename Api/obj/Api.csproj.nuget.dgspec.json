@@ -57,6 +57,10 @@
               "target": "Package",
               "version": "[4.0.3.23, )"
             },
+            "AWSSDK.SQS": {
+              "target": "Package",
+              "version": "[4.0.2.15, )"
+            },
             "Amazon.Lambda.AspNetCoreServer.Hosting": {
               "target": "Package",
               "version": "[1.9.1, )"
@@ -99,7 +103,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.417/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.418/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
