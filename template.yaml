@@ -43,6 +43,23 @@ Resources:
         - SQSSendMessagePolicy:
             QueueName: !GetAtt TelemetryQueue.QueueName
         # ---------------------------------------------
+
+  TelemetryWorkerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./Api
+      # Sintaxe: Assembly::Namespace.Classe::Metodo
+      Handler: Api::Api.Worker.EventProcessor::FunctionHandler
+      Runtime: dotnet8
+      Architectures:
+        - x86_64
+      # Aqui ligamos a Lambda na Fila (Trigger)
+      Events:
+        MySQSEvent:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt TelemetryQueue.Arn
+            BatchSize: 10 # Pega até 10 mensagens de uma vez
   TelemetryHttpApi:
     Type: AWS::Serverless::HttpApi
     Properties:

@@ -159,6 +159,10 @@
               "target": "Package",
               "version": "[1.9.1, )"
             },
+            "Amazon.Lambda.SQSEvents": {
+              "target": "Package",
+              "version": "[2.2.1, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[8.0.18, )"

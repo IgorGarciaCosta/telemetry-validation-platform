@@ -11,7 +11,9 @@
         "dependencies": {
           "AWSSDK.DynamoDBv2": "4.0.15",
           "AWSSDK.Extensions.NETCore.Setup": "4.0.3.23",
+          "AWSSDK.SQS": "4.0.2.15",
           "Amazon.Lambda.AspNetCoreServer.Hosting": "1.9.1",
+          "Amazon.Lambda.SQSEvents": "2.2.1",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.18",
           "Microsoft.EntityFrameworkCore.Design": "8.0.11",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "8.0.11",
@@ -111,6 +113,14 @@
           }
         }
       },
+      "Amazon.Lambda.SQSEvents/2.2.1": {
+        "runtime": {
+          "lib/net8.0/Amazon.Lambda.SQSEvents.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "AWSSDK.Core/4.0.3.15": {
         "runtime": {
           "lib/net8.0/AWSSDK.Core.dll": {
@@ -141,6 +151,17 @@
           "lib/net8.0/AWSSDK.Extensions.NETCore.Setup.dll": {
             "assemblyVersion": "4.0.0.0",
             "fileVersion": "4.0.3.23"
+          }
+        }
+      },
+      "AWSSDK.SQS/4.0.2.15": {
+        "dependencies": {
+          "AWSSDK.Core": "4.0.3.15"
+        },
+        "runtime": {
+          "lib/net8.0/AWSSDK.SQS.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.2.15"
           }
         }
       },
@@ -853,6 +874,13 @@
       "path": "amazon.lambda.serialization.systemtextjson/2.4.4",
       "hashPath": "amazon.lambda.serialization.systemtextjson.2.4.4.nupkg.sha512"
     },
+    "Amazon.Lambda.SQSEvents/2.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DnDW50+hggx+mQm7uphftCUJqSk9M68Dv+PVqRVd+f3soxYksFk+9QRZHmjBkh3+yG1JPGUPcPBqxOMGcfcA2w==",
+      "path": "amazon.lambda.sqsevents/2.2.1",
+      "hashPath": "amazon.lambda.sqsevents.2.2.1.nupkg.sha512"
+    },
     "AWSSDK.Core/4.0.3.15": {
       "type": "package",
       "serviceable": true,
@@ -873,6 +901,13 @@
       "sha512": "sha512-jhKlYKWC6j9Jl6O9p7f5++emNjCsXsA9WnJLxmwtKg95JbX+kAsQyNqTsp4Ce+K4KWafzZsoZEewXwaiy26GOA==",
       "path": "awssdk.extensions.netcore.setup/4.0.3.23",
       "hashPath": "awssdk.extensions.netcore.setup.4.0.3.23.nupkg.sha512"
+    },
+    "AWSSDK.SQS/4.0.2.15": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Fa4lx6saNTFakp4mXiDDJ6TrLuDfJmHjQZUGghwS5rzeS9T3NgRokaJ0jEhvW21Q/+ophhEOUZSwoZ8sLEdJDA==",
+      "path": "awssdk.sqs/4.0.2.15",
+      "hashPath": "awssdk.sqs.4.0.2.15.nupkg.sha512"
     },
     "Humanizer.Core/2.14.1": {
       "type": "package",

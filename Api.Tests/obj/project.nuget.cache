@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "5AfI1QuGLN8=",
+  "dgSpecHash": "KXF1AjmY9JQ=",
   "success": true,
   "projectFilePath": "C:\\Users\\ISILV125\\Documents\\GitHub\\telemetry-validation-platform\\Api.Tests\\Api.Tests.csproj",
   "expectedPackageFiles": [
@@ -12,6 +12,7 @@
     "C:\\Users\\ISILV125\\.nuget\\packages\\amazon.lambda.logging.aspnetcore\\4.1.1\\amazon.lambda.logging.aspnetcore.4.1.1.nupkg.sha512",
     "C:\\Users\\ISILV125\\.nuget\\packages\\amazon.lambda.runtimesupport\\1.14.1\\amazon.lambda.runtimesupport.1.14.1.nupkg.sha512",
     "C:\\Users\\ISILV125\\.nuget\\packages\\amazon.lambda.serialization.systemtextjson\\2.4.4\\amazon.lambda.serialization.systemtextjson.2.4.4.nupkg.sha512",
+    "C:\\Users\\ISILV125\\.nuget\\packages\\amazon.lambda.sqsevents\\2.2.1\\amazon.lambda.sqsevents.2.2.1.nupkg.sha512",
     "C:\\Users\\ISILV125\\.nuget\\packages\\awssdk.core\\4.0.3.15\\awssdk.core.4.0.3.15.nupkg.sha512",
     "C:\\Users\\ISILV125\\.nuget\\packages\\awssdk.dynamodbv2\\4.0.15\\awssdk.dynamodbv2.4.0.15.nupkg.sha512",
     "C:\\Users\\ISILV125\\.nuget\\packages\\awssdk.extensions.netcore.setup\\4.0.3.23\\awssdk.extensions.netcore.setup.4.0.3.23.nupkg.sha512",

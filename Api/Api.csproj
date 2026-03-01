@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Amazon.Lambda.AspNetCoreServer.Hosting" Version="1.9.1" />
+    <PackageReference Include="Amazon.Lambda.SQSEvents" Version="2.2.1" />
     <PackageReference Include="AWSSDK.DynamoDBv2" Version="4.0.15" />
     <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="4.0.3.23" />
     <PackageReference Include="AWSSDK.SQS" Version="4.0.2.15" />

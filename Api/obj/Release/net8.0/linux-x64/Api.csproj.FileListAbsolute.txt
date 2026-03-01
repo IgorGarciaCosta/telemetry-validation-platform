@@ -129,3 +129,5 @@ C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\obj\Release
 C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Release\net8.0\linux-x64\AWSSDK.Core.dll
 C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Release\net8.0\linux-x64\AWSSDK.DynamoDBv2.dll
 C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Release\net8.0\linux-x64\AWSSDK.Extensions.NETCore.Setup.dll
+C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Release\net8.0\linux-x64\Amazon.Lambda.SQSEvents.dll
+C:\Users\ISILV125\Documents\GitHub\telemetry-validation-platform\Api\bin\Release\net8.0\linux-x64\AWSSDK.SQS.dll
