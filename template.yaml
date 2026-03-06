@@ -9,6 +9,7 @@ Globals:
     MemorySize: 256
 
 Resources:
+  # --- API (Producer) ---
   TelemetryApiFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -32,39 +33,47 @@ Resources:
             ApiId: !Ref TelemetryHttpApi
       Environment:
         Variables:
-          # Em produção real, isso iria para o Parameter Store
-          # Por enquanto, vamos deixar vazio ou usar uma string de conexão fake se necessário
           ASPNETCORE_ENVIRONMENT: Production
           SQS_QUEUE_URL: !Ref TelemetryQueue
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref EventsTable
-          # --- Permissão para enviar mensagens ---
         - SQSSendMessagePolicy:
             QueueName: !GetAtt TelemetryQueue.QueueName
-        # ---------------------------------------------
 
+  # --- WORKER (Consumer) ---
   TelemetryWorkerFunction:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: ./Api
-      # Sintaxe: Assembly::Namespace.Classe::Metodo
       Handler: Api::Api.Worker.EventProcessor::FunctionHandler
       Runtime: dotnet8
       Architectures:
         - x86_64
-      # Aqui ligamos a Lambda na Fila (Trigger)
+      # Trigger da Fila
       Events:
         MySQSEvent:
           Type: SQS
           Properties:
             Queue: !GetAtt TelemetryQueue.Arn
-            BatchSize: 10 # Pega até 10 mensagens de uma vez
+            BatchSize: 10
+      # --- CORREÇÃO AQUI: Environment e Policies DENTRO de Properties ---
+      Environment:
+        Variables:
+          METRICS_TABLE_NAME: !Ref MetricsTable
+      Policies:
+        - SQSPollerPolicy:
+            QueueName: !GetAtt TelemetryQueue.QueueName
+        - DynamoDBCrudPolicy:
+            TableName: !Ref MetricsTable
+      # ------------------------------------------------------------------
+
   TelemetryHttpApi:
     Type: AWS::Serverless::HttpApi
     Properties:
       Description: "HTTP API para Telemetry Platform"
 
+  # --- Tabelas DynamoDB ---
   EventsTable:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -76,16 +85,31 @@ Resources:
         - AttributeName: Id
           KeyType: HASH
       BillingMode: PAY_PER_REQUEST
+
+  MetricsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: Metrics
+      AttributeDefinitions:
+        - AttributeName: PK
+          AttributeType: S
+        - AttributeName: SK
+          AttributeType: S
+      KeySchema:
+        - AttributeName: PK
+          KeyType: HASH
+        - AttributeName: SK
+          KeyType: RANGE
+      BillingMode: PAY_PER_REQUEST
+
   # --- Fila SQS ---
   TelemetryQueue:
     Type: AWS::SQS::Queue
-  # --
 
 Outputs:
   WebApiUrl:
     Description: URL da API
     Value: !Sub "https://${TelemetryHttpApi}.execute-api.${AWS::Region}.amazonaws.com/"
-  # Mostrar a URL da fila no final
   QueueUrl:
     Description: URL da Fila SQS
     Value: !Ref TelemetryQueue

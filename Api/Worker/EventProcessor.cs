@@ -1,5 +1,8 @@
 using Amazon.Lambda.Core;
 using Amazon.Lambda.SQSEvents;
+using Amazon.DynamoDBv2;
+using System.Text.Json;
+using Api.Models;
 
 
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
@@ -7,6 +10,17 @@ namespace Api.Worker;
 
 public class EventProcessor
 {
+
+    private readonly MetricsRepository _metricsRepo;
+
+    public EventProcessor()
+    {
+        // Inicializa o cliente DynamoDB e o Repositório
+        var dbClient = new AmazonDynamoDBClient();
+        _metricsRepo = new MetricsRepository(dbClient);
+    }
+
+
     // Este é o método que a AWS vai chamar quando tiver mensagens na fila
     public async Task FunctionHandler(SQSEvent evnt, ILambdaContext context)
     {
@@ -18,13 +32,25 @@ public class EventProcessor
 
     private async Task ProcessMessageAsync(SQSEvent.SQSMessage message, ILambdaContext context)
     {
-        context.Logger.LogInformation($"[WORKER] Processando mensagem ID: {message.MessageId}");
-        context.Logger.LogInformation($"[WORKER] Conteúdo: {message.Body}");
+        try
+        {
+            context.Logger.LogInformation($"[WORKER] Processando: {message.Body}");
 
-        // AQUI ENTRARIA A LÓGICA PESADA (Cálculo de métricas, envio de email, etc)
-        // Por enquanto, vamos simular um trabalho de 1 segundo
-        await Task.Delay(1000);
+            // 1. Deserializa a mensagem para o nosso objeto de evento
+            var telemetryEvent = JsonSerializer.Deserialize<TelemetryEvent>(message.Body);
 
-        context.Logger.LogInformation($"[WORKER] Mensagem {message.MessageId} processada com sucesso!");
+            if (telemetryEvent != null && !string.IsNullOrEmpty(telemetryEvent.Type))
+            {
+                // 2. Incrementa o contador no DynamoDB
+                await _metricsRepo.IncrementMetricAsync(telemetryEvent.Type, telemetryEvent.Timestamp);
+
+                context.Logger.LogInformation($"[WORKER] Métrica atualizada para: {telemetryEvent.Type}");
+            }
+        }
+        catch (Exception ex)
+        {
+            context.Logger.LogError($"[WORKER ERROR] Falha ao processar mensagem {message.MessageId}: {ex.Message}");
+            // Em produção, aqui você jogaria para uma Dead Letter Queue (DLQ)
+        }
     }
 }

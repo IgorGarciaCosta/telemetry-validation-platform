@@ -64,6 +64,19 @@ Resources:
               - TelemetryQueue
               - Arn
             BatchSize: 10
+      Environment:
+        Variables:
+          METRICS_TABLE_NAME:
+            Ref: MetricsTable
+      Policies:
+      - SQSPollerPolicy:
+          QueueName:
+            Fn::GetAtt:
+            - TelemetryQueue
+            - QueueName
+      - DynamoDBCrudPolicy:
+          TableName:
+            Ref: MetricsTable
     Metadata:
       SamResourceId: TelemetryWorkerFunction
   TelemetryHttpApi:
@@ -80,6 +93,21 @@ Resources:
       KeySchema:
       - AttributeName: Id
         KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+  MetricsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: Metrics
+      AttributeDefinitions:
+      - AttributeName: PK
+        AttributeType: S
+      - AttributeName: SK
+        AttributeType: S
+      KeySchema:
+      - AttributeName: PK
+        KeyType: HASH
+      - AttributeName: SK
+        KeyType: RANGE
       BillingMode: PAY_PER_REQUEST
   TelemetryQueue:
     Type: AWS::SQS::Queue
